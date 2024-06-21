@@ -1,0 +1,67 @@
+class Usuario:
+    def __init__(self,id,nombre,edad,genero,peso,altura):
+        self.id = id
+        self.nombre = nombre
+        self.edad = edad
+        self.genero = genero
+        self.peso = peso
+        self.altura = altura
+        self.rutinas = []
+
+    def calcularIMC(self):
+        return self.peso / (self.altura ** 2)
+
+    def obtenerEjercicios(self):
+        ejercicios = []
+        for rutina in self.rutinas:
+            ejercicios.extend(rutina.ejercicios)
+        return ejercicios
+
+
+class Rutina:
+    def __init__(self,nombre, ejercicios):
+        self.nombre = nombre
+        self.ejercicios = ejercicios
+        self.ejercicios = []
+
+    def agregarEjercicio(self,ejercicio):
+        self.ejercicios.append(ejercicio)
+
+    def eliminarEjercicio(self,ejercicio):
+        self.ejercicios.remove(ejercicio)
+
+
+class Ejercicio:
+    def __init__(self,id, nombre, tipoejercicio, repeticiones, series):
+        self.id = id
+        self.nombre = nombre
+        self.tipoejercicio = tipoejercicio
+        self.repeticiones = repeticiones
+        self.series = series
+
+
+class Planificador_rutinas:
+    def __init__(self):
+        self.usuarios = []
+        self.rutinas = []
+
+    def crearRutina(self,usuario,nombre):
+        rutina = Rutina(len(self.rutinas)+1, nombre)
+        self.rutinas.append(rutina)
+        usuario.rutinas.append(rutina)
+        return rutina
+
+    def __asignarRutina(self,usuario,rutina):
+        usuario.rutinas.append(rutina)
+
+    def __obtenerRutinasporUsuario(self,usuario):
+        return usuario.rutinas
+
+usuario = Usuario(1,"Luis", 22, "Masculino", 67.8, 1.69)
+ejercicio1 = Ejercicio(1,"Banco plano", "EjerciciodePecho", 12, 5)
+ejercicio2 = Ejercicio(2,"Banco inclinado", "EjerciciodePecho", 12, 5)
+rutinas = Planificador_rutinas()
+rutina = rutinas.crearRutina(usuario, "RutinadeFuerza")
+rutina.agregarEjercicio(ejercicio1)
+rutina.agregarEjercicio(ejercicio2)
+print(f"Ejercicios de {usuario.nombre}: {[e.nombre for e in usuario.obtenerEjercicios()]}")
