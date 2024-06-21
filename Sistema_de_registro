@@ -1,0 +1,47 @@
+class SistemaDeRegistro:
+    def __init__(self):
+        self.usuarios = []
+
+    def agregar_usuario(self, usuario):
+        self.__agregar_usuario(usuario) 
+
+    def __agregar_usuario(self, usuario):
+        self.usuarios.append(usuario)
+        print(f'Usuario agregado: {usuario.nombre}, Email: {usuario.mail}')
+
+class Usuario:
+    def __init__(self, id, nombre, apellido, edad, mail, contrasenia):
+        self.id = id
+        self.nombre = nombre
+        self.apellido = apellido
+        self.edad = edad
+        self.mail = mail
+        self.contrasenia = contrasenia
+
+    def crear_usuario(self):
+        print(f'Usuario creado: {self.nombre}, Email: {self.mail}')
+
+    def __str__(self):
+        return f'ID: {self.id}, Nombre: {self.nombre}, Email: {self.mail}'
+
+
+class Administrador:
+    def __init__(self, idadministrador, nombre, mail, contrasenia):
+        self.idadministrador = idadministrador
+        self.nombre = nombre
+        self.mail = mail
+        self.contrasenia = contrasenia
+
+    def __str__(self):
+        return f'ID Administrador: {self.idadministrador}, Nombre: {self.nombre}, Email: {self.mail}'
+
+
+sistema = SistemaDeRegistro()
+
+usuario1 = Usuario(1, "Pedro", "Lopez", "28", "pedrolopez@gmail.com", "1234")
+usuario2 = Usuario(2, "Juan", "Garcia", "33", "juanGarcia@gmail.com", "2222")
+admin = Administrador(1, "Matías", "matias@gmail.com", "1145")
+
+sistema.agregar_usuario(usuario1)
+sistema.agregar_usuario(usuario2)
+sistema.agregar_usuario(admin)
