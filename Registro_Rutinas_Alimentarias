@@ -1,0 +1,74 @@
+class Usuario:
+    def __init__(self, id, nombre, edad, genero, peso, altura):
+        self.id = id
+        self.nombre = nombre
+        self.edad = edad
+        self.genero = genero
+        self.peso = peso
+        self.altura = altura
+        self.dietas = []
+
+    def obtenerAlimentos(self):
+        alimentos = []
+        for dieta in self.dietas:
+            alimentos.extend(dieta.alimentos)
+        return alimentos
+
+
+class Dieta:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.alimentos = []
+
+    def agregar_alimento(self, alimento):
+        self.alimentos.append(alimento)
+
+    def eliminar_alimento(self, alimento):
+        self.alimentos.remove(alimento)
+
+
+class Alimento:
+    def __init__(self, id, nombre, tipo_alimento, calorias, porcion):
+        self.id = id
+        self.nombre = nombre
+        self.tipo_alimento = tipo_alimento
+        self.calorias = calorias
+        self.porcion = porcion
+
+
+class PlanificadorDietas:
+    def __init__(self):
+        self.usuarios = []
+        self.dietas = []
+
+    def crear_dieta(self, usuario, nombre):
+        dieta = Dieta(nombre)
+        self.dietas.append(dieta)
+        usuario.dietas.append(dieta)
+        return dieta
+
+    def asignar_dieta(self, usuario, dieta):
+        usuario.dietas.append(dieta)
+
+    def obtener_dietas_por_usuario(self, usuario):
+        return usuario.dietas
+
+    def agregar_usuario(self, usuario):
+        self.usuarios.append(usuario)
+
+    def obtener_usuarios(self):
+        return self.usuarios
+
+
+usuario = Usuario(1, "Luis", 22, "Masculino", 67.8, 1.69)
+alimento1 = Alimento(1, "Manzana", "Fruta", 95, "1 unidad")
+alimento2 = Alimento(2, "Pollo", "Proteína", 231, "100g")
+
+planificador_dietas = PlanificadorDietas()
+dieta = planificador_dietas.crear_dieta(usuario, "Dieta Balanceada")
+
+dieta.agregar_alimento(alimento1)
+dieta.agregar_alimento(alimento2)
+
+print(f"Alimentos de {usuario.nombre}: {[a.nombre for a in usuario.obtenerAlimentos()]}")
+
